@@ -7,6 +7,8 @@ defmodule ExVCR.RecorderHackneyTest do
   @url "http://localhost:#{@port}/server"
   @url_with_query "http://localhost:#{@port}/server?password=sample"
 
+  require Logger
+
   setup_all do
     File.rm_rf(@dummy_cassette_dir)
 
@@ -43,7 +45,7 @@ defmodule ExVCR.RecorderHackneyTest do
   test "forcefully getting response from server with error" do
     use_cassette "server_error" do
       assert_raise HTTPoison.Error, fn ->
-        HTTPoison.get!("http://invalid_url", [])
+        HTTPoison.get!("http://localhost:1010", [])
       end
     end
   end
